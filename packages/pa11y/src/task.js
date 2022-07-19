@@ -2,7 +2,7 @@ const pa11yLib = require("pa11y");
 const puppeteer = require("puppeteer");
 
 const pa11y = (callback) => async ({ url, opts }) => {
-  console.log("cy.pa11y()", "Inside pa11y function");
+  throw new Error("Inside pa11y function");
   
   const browser = await puppeteer.connect({
     browserURL: `http://localhost:${global.cypress_audit_port}`,
