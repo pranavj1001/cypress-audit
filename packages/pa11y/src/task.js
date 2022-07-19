@@ -2,10 +2,10 @@ const pa11yLib = require("pa11y");
 const puppeteer = require("puppeteer");
 
 const pa11y = (callback) => async ({ url, opts }) => {
-  throw new Error(`Inside pa11y function port ${global.cypress_audit_port}, url ${url}, opts ${opts}, puppeteer.connect ${puppeteer.connect}`);
+//   throw new Error(`Inside pa11y function port ${global.cypress_audit_port}, url ${url}, opts ${opts}, puppeteer.connect ${puppeteer.connect}`);
   
   const browser = await puppeteer.connect({
-    browserURL: `http://localhost:${global.cypress_audit_port}`,
+    browserURL: `http://docker.for.mac.localhost:${global.cypress_audit_port}`,
   });
   
   throw new Error(`Connected to browser using puppeteer ${browser}`);
