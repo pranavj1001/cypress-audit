@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 
 const pa11y = (callback) => async ({ url, opts }) => {
   const browser = await puppeteer.connect({
-    browserURL: `http://localhost:${global.cypress_audit_port}`,
+    browserURL: `http://docker.for.mac.localhost:${global.cypress_audit_port}`,
   });
 
   const results = await pa11yLib(url, { browser, runners: ["axe"], ...opts });
