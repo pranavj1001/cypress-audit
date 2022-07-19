@@ -91,7 +91,7 @@ const pa11yCommandHandler = (opts) => {
       });
   } catch(err) {
     cy.log(`Exception details ${err}`);
-    console.log(`Exception details ${err}`);
+    throw new Error(`Exception details ${err}`);
   }
 };
 
