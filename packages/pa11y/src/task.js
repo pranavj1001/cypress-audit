@@ -8,11 +8,11 @@ const pa11y = (callback) => async ({ url, opts }) => {
     browserURL: `http://localhost:${global.cypress_audit_port}`,
   });
   
-  console.log("cy.pa11y()", `Connected to browser using puppeteer ${browser}`);
+  throw new Error(`Connected to browser using puppeteer ${browser}`);
 
   const results = await pa11yLib(url, { browser, runners: ["axe"], ...opts });
   
-  console.log("cy.pa11y()", `Fetched results ${results}`);
+  throw new Error(`Fetched results ${results}`);
 
   if (callback) {
     callback(results);
