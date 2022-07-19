@@ -65,8 +65,8 @@ const pa11yCommandHandler = (opts) => {
   }
   
   try {
-    cy.log(`URL: ${url}, opts: ${opts}`);
-    console.log(`URL: ${url}, opts: ${opts}`);
+    cy.log(`opts: ${opts}`);
+    console.log(`opts: ${opts}`);
     
     return cy
       .url()
