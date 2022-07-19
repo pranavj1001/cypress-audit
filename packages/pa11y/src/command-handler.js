@@ -63,28 +63,37 @@ const pa11yCommandHandler = (opts) => {
       `${Cypress.browser.displayName} is not supported. Skipping...`
     );
   }
+  
+  try {
+    cy.log(`URL: ${url}, opts: ${opts}`);
+    console.log(`URL: ${url}, opts: ${opts}`);
+    
+    return cy
+      .url()
+      .then((url) => cy.task("pa11y", { url, opts }))
+      .then((issues) => {
+        if (issues.length > 0) {
+          const groupedIssues = groupIssues(issues);
 
-  return cy
-    .url()
-    .then((url) => cy.task("pa11y", { url, opts }))
-    .then((issues) => {
-      if (issues.length > 0) {
-        const groupedIssues = groupIssues(issues);
+          const title =
+            issues.length === 1
+              ? `cy.pa11y - ${issues.length} accessibility violation was found`
+              : `cy.pa11y - ${issues.length} accessibility violations were found`;
 
-        const title =
-          issues.length === 1
-            ? `cy.pa11y - ${issues.length} accessibility violation was found`
-            : `cy.pa11y - ${issues.length} accessibility violations were found`;
+          const formattedIssues = formatIssues(groupedIssues);
 
-        const formattedIssues = formatIssues(groupedIssues);
-
-        if(opts && opts.threshold && issues.length < opts.threshold) {
-          cy.log(`${title}\n\n${formattedIssues}`);
-        } else {
-          throw new Error(`${title}\n\n${formattedIssues}`);
+          if(opts && opts.threshold && issues.length < opts.threshold) {
+            cy.log(`${title}\n\n${formattedIssues}`);
+          } else {
+            throw new Error(`${title}\n\n${formattedIssues}`);
+          }
         }
-      }
-    });
+      });
+  } catch(err) {
+    cy.log(`Exception details ${err}`);
+    console.log(`Exception details ${err}`);
+    return null;
+  }
 };
 
 module.exports = pa11yCommandHandler;
